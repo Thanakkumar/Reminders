@@ -22,12 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    ArrayList<Reminders> remindersList = new ArrayList<Reminders>();
-    RecyclerView recyclerView;
 
-    Button bt ;
-    EditText eText;
-    TimePicker tp;
 
 
 
@@ -47,10 +42,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.nav_host_fragment, new Fragment());
-        ft.commit();
+
 
 
     }

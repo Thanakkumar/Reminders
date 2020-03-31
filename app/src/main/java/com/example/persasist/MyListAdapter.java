@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder>{
     private ArrayList<Reminders> listdata;
-    private ArrayList<Reminders> textdata;
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView mText;
@@ -56,8 +55,15 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
+        if(listdata!=null)
         return listdata.size();
+        return 0;
     }
 
+    public void add(Reminders reminders) {
+        listdata.add(reminders);
+
+        notifyDataSetChanged();
+    }
 
 }
