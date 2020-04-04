@@ -1,6 +1,7 @@
 package com.example.persasist.ui.dashboard;
 
 import android.app.AlertDialog;
+import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -51,6 +53,19 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
         final TextView textView = root.findViewById(R.id.text_dashboard);
         tp = (TimePicker) root.findViewById(R.id.timePicker1);
+        Calendar calendar = Calendar.getInstance();
+
+        int minutes = calendar.get(Calendar.MINUTE);
+        int hour = calendar.get(Calendar.HOUR);
+
+          if(minutes>50){
+              tp.setCurrentHour(hour+1);
+              tp.setCurrentMinute(minutes - 50);
+          }
+          else {
+              tp.setCurrentMinute(minutes + 10);
+          }
+
         bt = root.findViewById(R.id.button1);
         eText = root.findViewById(R.id.editText);
         bt.setOnClickListener(this);
@@ -106,9 +121,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         //remindersList.add(new Reminders(eText.getText().toString()+" "+timeRemind));
         bundle.putSerializable("reminders",remindersList);
 
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
+//        FragmentManager fm = getActivity().getSupportFragmentManager();
+//        FragmentTransaction ft = fm.beginTransaction();
         home.setArguments(bundle);
+        getFragmentManager().popBackStackImmediate();
        // home.onSaveInstanceState(bundle);
         //ft.replace(R.id.frameHome, home).addToBackStack(null).commit();
        // fm.popBackStack();
@@ -151,5 +167,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 //        db.close();
 //        return taskList;
 //    }
+
 
 }
