@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">PersAsist</string>
-    <string name="title_home">Home</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+  <string name="app_name">Nudger Everyday</string>
+  <string name="title_home">Reminders</string>
+  <string name="hello_world">Hello world!</string>
+  <string name="title_dashboard">Set a Reminder</string>
+  <string name="title_notifications">Recents</string>
 </resources>

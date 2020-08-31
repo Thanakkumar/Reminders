@@ -1,6 +1,8 @@
 package com.example.persasist.ui.home;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -53,6 +55,20 @@ public class HomeFragment extends Fragment {
 //
 //        }
         remindersList = updateUI(getActivity());
+        if(remindersList.isEmpty()){
+            AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+            alertDialog.setTitle("Nudger's Message");
+            alertDialog.setMessage("No Reminders,Please set your Reminder in Set a Reminder option");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+
+                    });
+            alertDialog.show();
+        }
         if(bundle!=null) {
            remindersList = (ArrayList<Reminders>)bundle.getSerializable("reminders");
 
@@ -65,13 +81,16 @@ public class HomeFragment extends Fragment {
         }
             // View rootDashboard = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
+//        final TextView textView = root.findViewById(R.id.text_null);
+//        if(remindersList.isEmpty()){
+//            homeViewModel.getText().observe(this, new Observer<String>() {
+//                @Override
+//                public void onChanged(@Nullable String s) {
+//                    textView.setText(s);
+//                }
+//            });
 //
-//        homeViewModel.getText().observe(this, new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
+//        }
             // MyListAdapter adapter = new MyListAdapter(remindersList);
 
 
@@ -126,12 +145,16 @@ public class HomeFragment extends Fragment {
         else
             mHelper=  new InputDbHelper(activity.getBaseContext());
         SQLiteDatabase db = mHelper.getReadableDatabase();
+
         Cursor cursor = db.query(InputContract.TaskEntry.TABLE,
-                new String[]{InputContract.TaskEntry._ID, InputContract.TaskEntry.REM_VALUE},
+                new String[]{InputContract.TaskEntry._ID, InputContract.TaskEntry.REM_VALUE,InputContract.TaskEntry.REM_TIME,InputContract.TaskEntry.MOBILE_NO},
                 null, null, null, null, null);
         while (cursor.moveToNext()) {
             int idx = cursor.getColumnIndex(InputContract.TaskEntry.REM_VALUE);
-            taskList.add(new Reminders(cursor.getString(idx)));
+            int idxTime = cursor.getColumnIndex(InputContract.TaskEntry.REM_TIME);
+            int idxMobile= cursor.getColumnIndex(InputContract.TaskEntry.MOBILE_NO);
+
+            taskList.add(new Reminders(cursor.getString(idx),cursor.getString(idxTime),cursor.getString(idxMobile)));
         }
 
 //        if (adapter== null) {

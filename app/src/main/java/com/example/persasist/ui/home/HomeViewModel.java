@@ -13,7 +13,7 @@ public class HomeViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
     private MutableLiveData<List<Reminders>> sessionsLiveData = new MutableLiveData<List<Reminders>>();
-   // ArrayList<Reminders> remindersList = new ArrayList<Reminders>();
+    // ArrayList<Reminders> remindersList = new ArrayList<Reminders>();
 
     public HomeViewModel() {
         mText = new MutableLiveData<>();

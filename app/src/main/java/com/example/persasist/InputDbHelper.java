@@ -14,7 +14,8 @@ public class InputDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + InputContract.TaskEntry.TABLE + "    ( " +
                 InputContract.TaskEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                InputContract.TaskEntry.REM_VALUE + " TEXT NOT NULL);";
+                InputContract.TaskEntry.REM_VALUE + " TEXT NOT NULL, "+
+                InputContract.TaskEntry.REM_TIME +" TEXT NOT NULL, "+InputContract.TaskEntry.MOBILE_NO +" TEXT NOT NULL);";
 
         db.execSQL(createTable);
     }

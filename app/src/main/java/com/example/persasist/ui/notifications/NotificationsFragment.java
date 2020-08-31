@@ -1,6 +1,8 @@
 package com.example.persasist.ui.notifications;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -41,14 +43,30 @@ public class NotificationsFragment extends Fragment {
         notificationsViewModel =
                 ViewModelProviders.of(this).get(NotificationsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
-//        final TextView textView = root.findViewById(R.id.text_notifications);
-//        notificationsViewModel.getText().observe(this, new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
+//        final TextView textView = root.findViewById(R.id.text_null);
+//        if(remindersList.isEmpty()) {
+//            notificationsViewModel.getText().observe(this, new Observer<String>() {
+//                @Override
+//                public void onChanged(@Nullable String s) {
+//                    textView.setText(s);
+//                }
+//            });
+//        }
         remindersList =updateNotifications(getActivity());
+        if(remindersList.isEmpty()){
+            AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+            alertDialog.setTitle("Nudger's Message");
+            alertDialog.setMessage("No Active Reminders for this hour");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                          dialog.dismiss();
+                        }
+
+                    });
+            alertDialog.show();
+        }
         recyclerView = (RecyclerView)root.findViewById(R.id.reminders);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -66,10 +84,12 @@ public class NotificationsFragment extends Fragment {
         Calendar calendar = Calendar.getInstance();
         int hour24hrs = calendar.get(Calendar.HOUR_OF_DAY);
         String hour = String.valueOf(hour24hrs);
-        Cursor cursor = db.rawQuery("select * from tasks where value like ?",new String[]{"%"+hour+"%"});
+        Cursor cursor = db.rawQuery("select * from remindersAutoSend where time like ?",new String[]{"%"+hour+":%"});
         while (cursor.moveToNext()) {
             int idx = cursor.getColumnIndex(InputContract.TaskEntry.REM_VALUE);
-            taskList.add(new Reminders(cursor.getString(idx)));
+            int idxTime = cursor.getColumnIndex(InputContract.TaskEntry.REM_TIME);
+            int idxMobile = cursor.getColumnIndex(InputContract.TaskEntry.MOBILE_NO);
+            taskList.add(new Reminders(cursor.getString(idx),cursor.getString(idxTime),cursor.getString(idxMobile)));
         }
 
 //        if (adapter== null) {

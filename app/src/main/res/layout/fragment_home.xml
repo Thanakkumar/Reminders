@@ -8,17 +8,13 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="50dp"
 
+
     >
 
 <!--    <androidx.cardview.widget.CardView-->
 <!--        android:layout_width="250dp"-->
 <!--        android:layout_height="250dp">-->
-<!--    <TextView-->
-<!--        android:id="@+id/text_home"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentLeft="true"-->
-<!--        android:text="testing values " />-->
+
 <!--        <include layout="@layout/reminders" />-->
 <!--        android:scrollbars="vertical" />-->
 
@@ -29,6 +25,8 @@
             android:layout_height="match_parent"
             android:scrollbars="vertical"
 
+
+
             >
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -37,6 +35,5 @@
 <!--    </androidx.cardview.widget.CardView>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 

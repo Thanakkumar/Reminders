@@ -10,7 +10,7 @@ public class DashboardViewModel extends ViewModel {
 
     public DashboardViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("Hey Folk, what to remind today");
+        mText.setValue("Set a Reminder in DashBoard!!");
     }
 
     public LiveData<String> getText() {

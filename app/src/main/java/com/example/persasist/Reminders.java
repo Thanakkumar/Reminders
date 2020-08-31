@@ -6,14 +6,24 @@ public class  Reminders {
 
 
     private String description;
-    private TimePicker time;
+    private String time;
+    private String mobileNo;
 
 
-    public Reminders(String description ) {
+    public Reminders(String description ,String time,String mobileNo) {
         this.description = description;
+        this.time=time;
+        this.mobileNo=mobileNo;
 
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public String getDescription() {
         return description;
@@ -22,4 +32,11 @@ public class  Reminders {
         this.description = description;
     }
 
+    public String getMobileNo() {
+        return mobileNo;
+    }
+
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
+    }
 }

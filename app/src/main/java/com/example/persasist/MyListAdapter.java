@@ -20,11 +20,14 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView mText;
-
+        public TextView tText;
+        public TextView mobileText;
         public ViewHolder(LinearLayout v) {
             super(v);
 
             mText = (TextView) v.findViewById(R.id.text_home);
+            tText = (TextView) v.findViewById(R.id.text_home_time);
+            mobileText = (TextView) v.findViewById(R.id.text_home_mobile);
         }
     }
     // RecyclerView recyclerView;
@@ -49,7 +52,16 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
 
         // Set item views based on your views and data model
         TextView textView = holder.mText;
-        textView.setText(reminders.getDescription());
+        if(reminders.getDescription().length()>40){
+            textView.setText(reminders.getDescription().substring(0,41)+"....");
+        }
+        else {
+            textView.setText(reminders.getDescription());
+        }
+        TextView textViewTime = holder.tText;
+        textViewTime.setText(reminders.getTime());
+        TextView textViewMobile = holder.mobileText;
+        textViewMobile.setText(reminders.getMobileNo());
     }
 
 
